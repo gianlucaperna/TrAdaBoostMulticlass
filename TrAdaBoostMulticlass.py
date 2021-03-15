@@ -52,10 +52,9 @@ class TradaboostClassifier(object):
                     print(f"Raggiunto il massimo interrompo a {i}")
                     self.epoches = i
                     break  
-                alfa_t = np.log((1-eta)/eta) + np.log(self.K-1)
+                alfa_t = np.log10((1-eta)/eta) + np.log10(self.K-1)
                 beta_t = np.exp(alfa_t * loss_diff)
-                beta = np.exp( (1/(1+np.sqrt(2*np.log(m)/self.epoches))) * loss_same) #old n
-
+                beta = np.exp(np.log10(1/(1+np.sqrt(2*np.log(m)/self.epoches))) * loss_same)
                 wt[:m] = wt[:m] * self.K * (1-eta) * beta
                 wt[m+1:] = wt[m+1:] * beta_t
 
