@@ -36,9 +36,8 @@ class TradaboostClassifier(object):
             
             self.K_extended = set(same_y)
             self.K = len(self.K_extended) #num classes
-            
-            wt = w0
             alfa = []
+            
             for i in range(self.epoches):
                 wt = wt / np.sum(wt)
                 model = clone(self.learner).fit(X, y, sample_weight=wt)
