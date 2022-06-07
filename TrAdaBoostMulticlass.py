@@ -25,11 +25,15 @@ class TradaboostClassifier(object):
         try:
             self.models = []
             l_all = len(same_y) + len(diff_y)
-            w0 = np.ones(l_all)
-            X = pd.concat([same_X, diff_X]).reset_index(drop=True)
-            y = np.array(pd.concat([pd.Series(same_y),pd.Series(diff_y)]))
             n = len(diff_y) #len diff data
             m = len(same_y) #len source train
+            w_s = np.ones(m)/m
+            w_d = np.ones(n)/n
+            wt = np.concatenate((w_s, w_d), axis=0)
+
+            X = pd.concat([same_X, diff_X]).reset_index(drop=True)
+            y = np.array(pd.concat([pd.Series(same_y),pd.Series(diff_y)]))
+            
             self.K_extended = set(same_y)
             self.K = len(self.K_extended) #num classes
             
