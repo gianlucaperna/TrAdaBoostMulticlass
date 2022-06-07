@@ -57,7 +57,8 @@ class TradaboostClassifier(object):
                     break  
                 alfa_t = np.log10(1-eta)/eta + np.log10(self.K-1)
                 beta_t = np.exp(alfa_t * loss_diff)
-                beta = np.exp(np.log10(1/(1+np.sqrt(2*np.log(m)/self.epoches))) * loss_same)
+                alfa = np.log10(1/(1+np.sqrt(2*np.log(m)/self.epoches))
+                beta = np.exp(alfa * loss_same)
                 wt[:m] = wt[:m] * self.K * (1-eta) * beta
                 wt[m+1:] = wt[m+1:] * beta_t
 
